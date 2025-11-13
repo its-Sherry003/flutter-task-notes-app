@@ -1,49 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:task_notes_manager/screens/second.dart';
+import 'package:task_notes_manager/screens/add_task.dart';
+import 'package:task_notes_manager/models/task_item.dart';
+import 'package:task_notes_manager/database/database_helper.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Function(bool) onThemeChange;
+  final bool isDark;
+
+  const HomeScreen({
+    super.key,
+    required this.onThemeChange,
+    required this.isDark,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> tasks = ['Pray', 'Finish Flutter project', 'Read a book'];
+  List<TaskItem> tasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  Future<void> _loadTasks() async {
+    final db = DatabaseHelper.instance;
+    final loadedTasks = await db.getTasks();
+    setState(() => tasks = loadedTasks);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'My Tasks & Notes',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            const Text('Welcome! Here you can manage your tasks'),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  return Card(child: ListTile(title: Text(tasks[index])));
-                },
-              ),
-            ),
-          ],
-        ),
+      appBar: AppBar(title: const Text("My Tasks & Notes")),
+      body: Column(
+        children: [
+          SwitchListTile(
+            title: const Text("Theme"),
+            value: widget.isDark,
+            onChanged: widget.onThemeChange,
+          ),
+          Expanded(
+            child: tasks.isEmpty
+                ? const Center(child: Text("No tasks yet"))
+                : ListView.builder(
+                    itemCount: tasks.length,
+                    itemBuilder: (context, index) {
+                      final task = tasks[index];
+                      return ListTile(
+                        title: Text(task.title),
+                        subtitle: Text(task.description),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () async {
+                            await DatabaseHelper.instance.deleteTask(task.id!);
+                            _loadTasks();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SecondPage()),
+            MaterialPageRoute(builder: (_) => const AddTaskScreen()),
           );
+          _loadTasks(); // refresh when returning
         },
         child: const Icon(Icons.add),
       ),
