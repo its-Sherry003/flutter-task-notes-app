@@ -1,37 +1,33 @@
 class TaskItem {
   int? id;
-  String title;
-  String priority;
-  String description;
-  bool isCompleted;
+  final String title;
+  final String priority;
+  final String description;
+  final bool isCompleted;
 
   TaskItem({
     this.id,
     required this.title,
     required this.priority,
     required this.description,
-    this.isCompleted = false,
+    required this.isCompleted,
   });
 
-  // Convert TaskItem to JSON map
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'priority': priority,
-      'description': description,
-      'isCompleted': isCompleted ? 1 : 0,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'title': title,
+    'priority': priority,
+    'description': description,
+    'isCompleted': isCompleted ? 1 : 0,
+  };
 
-  // Create TaskItem from JSON map
   factory TaskItem.fromJson(Map<String, dynamic> json) {
     return TaskItem(
       id: json['id'],
-      title: json['title'],
-      priority: json['priority'],
-      description: json['description'],
-      isCompleted: json['isCompleted'] == 1,
+      title: json['title'] ?? '',
+      priority: json['priority'] ?? 'Low',
+      description: json['description'] ?? '',
+      isCompleted: (json['isCompleted'] ?? 0) == 1,
     );
   }
 }
