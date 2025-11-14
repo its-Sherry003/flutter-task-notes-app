@@ -1,16 +1,32 @@
-# task_notes_manager
+# flutter-task-notes-app
 
-A new Flutter project.
+Flutter assignment. Mobile Networks
 
-## Getting Started
+Name : NAMEMBWA SHERRY
+Student Number : 2300714586
+Reg. No. : 23/U/14586/EVE
 
-This project is a starting point for a Flutter application.
+A brief description of the app.
 
-A few resources to get you started if this is your first Flutter project:
+1. Add tasks: Users can create tasks with
+   -Title (required)
+   -Description (optional)
+   -Priority level (Low, Medium, High)
+   -Completion status
+2. View tasks: Displays all tasks in a scrollable list showing: Task title, description and delete button for each task
+3. The application has a dark/Light theme Toogle on the home screen. It persists across app restarts.
+4. Local storage: The app uses SQLite database to store permanently on the device.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Instructions on how to run the project.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Prerequisities:
+   -Flutter SDK installed (flutter.dev)
+   -Dart SDK (comes with flutter or you can download it manually)
+   -An IDE(Android Studio or VS Code)
+   -Android or IOS Emulator, or a physical device
+2. Steps to run: Use a terminal "Power shell, CMD or bash"
+   -Clone the repository run "git clone https://github.com/its-Sherry003/flutter-task-notes-app.git" then run "cd flutter-task-notes-app/task_notes_manager"
+   -Install dependencies run "flutter pub get"
+   -Check Flutter setup run "flutter doctor"
+   -If no issues shown run "flutter run" for connected device or emulator
+   -But for a specific device run "flutter devices" to list available devices then run "flutter run -d <device-id>"

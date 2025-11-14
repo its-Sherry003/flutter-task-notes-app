@@ -52,7 +52,12 @@ class DatabaseHelper {
 
   Future<int> updateTask(TaskItem task) async {
     final db = await instance.database;
-    return db.update('tasks', task.toJson(), where: 'id = ?', whereArgs: [task.id]);
+    return db.update(
+      'tasks',
+      task.toJson(),
+      where: 'id = ?',
+      whereArgs: [task.id],
+    );
   }
 
   Future close() async {

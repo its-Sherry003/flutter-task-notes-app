@@ -25,7 +25,7 @@ Instructions on how to run the project.
    -An IDE(Android Studio or VS Code)
    -Android or IOS Emulator, or a physical device
 2. Steps to run: Use a terminal "Power shell, CMD or bash"
-   -Clone the repository run "git clone https://github.com/its-Sherry003/flutter-task-notes-app.git" then run "cd flutter-task-notes-app"
+   -Clone the repository run "git clone https://github.com/its-Sherry003/flutter-task-notes-app.git" then run "cd flutter-task-notes-app/task_notes_manager"
    -Install dependencies run "flutter pub get"
    -Check Flutter setup run "flutter doctor"
    -If no issues shown run "flutter run" for connected device or emulator

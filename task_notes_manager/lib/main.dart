@@ -43,4 +43,3 @@ class _TaskNotesAppState extends State<TaskNotesApp> {
     );
   }
 }
-
